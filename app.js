@@ -1,7 +1,9 @@
 const express = require('express');
 const fs = require('fs');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
 const port = 8000;
 
@@ -14,8 +16,9 @@ app.get('/employees', (req, res) => {
 });
 
 app.post('/employees', (req, res) => {
-    let employees = {'employees' : []};
-    res.send(employees)
+    let data = JSON.stringify(req.body);
+    fs.writeFileSync('assigned.json', data);
+    res.send('success')
 });
 
 app.get('/surveys', (req, res) => {
