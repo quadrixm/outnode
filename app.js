@@ -1,9 +1,14 @@
 const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(cors());
+
+app.use(bodyParser.urlencoded());
+
+app.use(bodyParser.json());
 
 const port = 8000;
 
@@ -16,6 +21,7 @@ app.get('/employees', (req, res) => {
 });
 
 app.post('/employees', (req, res) => {
+    console.log(req);
     let data = JSON.stringify(req.body);
     fs.writeFileSync('assigned.json', data);
     res.send('success')
